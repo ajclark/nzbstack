@@ -1,0 +1,40 @@
+sabnzbd:
+  build: sabnzb
+  restart: always
+  ports:
+  - "8080:8080"
+  volumes:
+  - /data/warehouse/sabnzbd:/data
+  - /mnt/aufs:/mnt/media
+  volumes_from:
+  - data
+
+data:
+  image: busybox
+  volumes:
+  - /downloads/tv
+  - /downloads/movies
+
+sickbeard:
+  build: sickbeard
+  restart: always
+  links:
+  - sabnzbd
+  ports:
+  - "8081:8081"
+  volumes:
+  - /data/warehouse/sickbeard:/data
+  - /mnt/aufs:/mnt/media
+  volumes_from:
+  - data
+
+couchpotato:
+  build: docker-couchpotato
+  restart: always
+  links:
+  - sabnzbd
+  ports:
+  - "5050:5050"
+  volumes:
+  - /data/warehouse/sickbeard:/data
+  - /mnt/aufs:/mnt/media
