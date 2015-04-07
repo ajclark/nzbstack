@@ -29,7 +29,7 @@ sickbeard:
   - data
 
 couchpotato:
-  build: docker-couchpotato
+  build: couchpotato
   restart: always
   links:
   - sabnzbd
