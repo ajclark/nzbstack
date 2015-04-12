@@ -36,5 +36,5 @@ couchpotato:
   ports:
   - "5050:5050"
   volumes:
-  - /data/warehouse/sickbeard:/data
+  - /data/warehouse/couchpotato:/data
   - /mnt/aufs:/mnt/media
