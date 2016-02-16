@@ -1,7 +1,10 @@
 nzbget:
   image: linuxserver/nzbget
   restart: always
-  ports: 
+  environment:
+    - PUID=0
+    - PGID=0
+  ports:
     - "6789:6789"
   volumes:
     - "/mnt/aufs:/downloads"
@@ -10,7 +13,10 @@ nzbget:
 sonarr:
   image: linuxserver/sonarr
   restart: always
-  ports: 
+  environment:
+    - PUID=0
+    - PGID=0
+  ports:
     - "8989:8989"
   volumes:
     - "/dev/rtc:/dev/rtc:ro"
@@ -26,3 +32,4 @@ couchpotato:
   volumes:
     - "/data/warehouse/couchpotato:/data"
     - "/mnt/aufs:/mnt/media"
+
