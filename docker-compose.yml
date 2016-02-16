@@ -1,40 +1,28 @@
-sabnzbd:
-  build: sabnzb
+nzbget:
+  image: linuxserver/nzbget
   restart: always
-  ports:
-  - "8080:8080"
+  ports: 
+    - "6789:6789"
   volumes:
-  - /data/warehouse/sabnzbd:/data
-  - /mnt/aufs:/mnt/media
-  volumes_from:
-  - data
+    - "/mnt/aufs:/downloads"
+    - "/data/warehouse/nzbget:/config"
 
-data:
-  image: busybox
-  volumes:
-  - /downloads/tv
-  - /downloads/movies
-
-sickbeard:
-  build: sickbeard
+sonarr:
+  image: linuxserver/sonarr
   restart: always
-  links:
-  - sabnzbd
-  ports:
-  - "8081:8081"
+  ports: 
+    - "8989:8989"
   volumes:
-  - /data/warehouse/sickbeard:/data
-  - /mnt/aufs:/mnt/media
-  volumes_from:
-  - data
+    - "/dev/rtc:/dev/rtc:ro"
+    - "/data/warehouse/sonarr:/config"
+    - "/mnt/aufs/TV:/tv"
+    - "/data/warehouse/nzbget/downloads/incoming:/downloads/incoming"
 
 couchpotato:
   build: couchpotato
   restart: always
-  links:
-  - sabnzbd
   ports:
-  - "5050:5050"
+    - "5050:5050"
   volumes:
-  - /data/warehouse/couchpotato:/data
-  - /mnt/aufs:/mnt/media
+    - "/data/warehouse/couchpotato:/data"
+    - "/mnt/aufs:/mnt/media"
