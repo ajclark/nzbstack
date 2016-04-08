@@ -25,11 +25,14 @@ sonarr:
     - "/data/warehouse/nzbget/downloads/incoming:/downloads/incoming"
 
 couchpotato:
-  build: couchpotato
+  image: linuxserver/couchpotato
   restart: always
-  ports:
+  environment: 
+    - PUID=0
+    - PGID=0
+  ports: 
     - "5050:5050"
   volumes:
-    - "/data/warehouse/couchpotato:/data"
-    - "/mnt/aufs:/mnt/media"
-
+    - "/dev/rtc:/dev/rtc:ro"
+    - "/data/warehouse/couchpotato:/config"
+    - "/mnt/aufs/MOVIES - HD:/movies"
