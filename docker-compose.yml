@@ -36,3 +36,15 @@ couchpotato:
     - "/dev/rtc:/dev/rtc:ro"
     - "/data/warehouse/couchpotato:/config"
     - "/mnt/aufs/MOVIES - HD:/movies"
+    
+plexpy:
+  image: linuxserver/plexpy
+  restart: always
+  environment:
+    - PUID=0
+    - PGID=0
+  ports:
+    - "8181:8181"
+  volumes:
+    - "/data/warehouse/plexpy:/config"
+    - "/data/warehouse/plexpy/logs:/logs:ro"
