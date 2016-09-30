@@ -9,7 +9,6 @@ nzbget:
   volumes:
     - "/mnt/aufs:/downloads"
     - "/data/warehouse/nzbget:/config"
-
 sonarr:
   image: linuxserver/sonarr
   restart: always
@@ -23,7 +22,6 @@ sonarr:
     - "/data/warehouse/sonarr:/config"
     - "/mnt/aufs/TV:/tv"
     - "/data/warehouse/nzbget/downloads/incoming:/downloads/incoming"
-
 couchpotato:
   image: linuxserver/couchpotato
   restart: always
@@ -35,8 +33,7 @@ couchpotato:
   volumes:
     - "/dev/rtc:/dev/rtc:ro"
     - "/data/warehouse/couchpotato:/config"
-    - "/mnt/aufs/MOVIES - HD:/movies"
-    
+    - "/mnt/aufs/MOVIES - HD:/movies" 
 plexpy:
   image: linuxserver/plexpy
   restart: always
