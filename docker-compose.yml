@@ -34,8 +34,8 @@ couchpotato:
     - "/dev/rtc:/dev/rtc:ro"
     - "/data/warehouse/couchpotato:/config"
     - "/mnt/aufs/MOVIES - HD:/movies" 
-plexpy:
-  image: linuxserver/plexpy
+tautulli:
+  image: linuxserver/tautulli
   restart: always
   environment:
     - PUID=0
@@ -43,5 +43,5 @@ plexpy:
   ports:
     - "8181:8181"
   volumes:
-    - "/data/warehouse/plexpy:/config"
-    - "/data/warehouse/plexpy/logs:/logs:ro"
+    - "/data/warehouse/tautulli:/config"
+    - "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Logs:/logs:ro"
