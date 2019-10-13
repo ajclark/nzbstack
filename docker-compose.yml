@@ -7,8 +7,9 @@ nzbget:
   ports:
     - "6789:6789"
   volumes:
-    - "/mnt/aufs:/downloads"
+    - "/mnt/aufs/MOVIES - HD:/downloads/Movies"
     - "/data/warehouse/nzbget:/config"
+    - "/data/warehouse/nzbget/downloads/incoming:/downloads/incoming"
 sonarr:
   image: linuxserver/sonarr
   restart: always
@@ -22,26 +23,29 @@ sonarr:
     - "/data/warehouse/sonarr:/config"
     - "/mnt/aufs/TV:/tv"
     - "/data/warehouse/nzbget/downloads/incoming:/downloads/incoming"
-couchpotato:
-  image: linuxserver/couchpotato
-  restart: always
-  environment: 
-    - PUID=0
-    - PGID=0
-  ports: 
-    - "5050:5050"
-  volumes:
-    - "/dev/rtc:/dev/rtc:ro"
-    - "/data/warehouse/couchpotato:/config"
-    - "/mnt/aufs/MOVIES - HD:/movies" 
 tautulli:
   image: linuxserver/tautulli
   restart: always
   environment:
     - PUID=0
     - PGID=0
+    - TZ=America/Kentucky/Louisville
   ports:
     - "8181:8181"
   volumes:
     - "/data/warehouse/tautulli:/config"
     - "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Logs:/logs:ro"
+    - "/dev/rtc:/dev/rtc:ro"
+radarr:
+  image: linuxserver/radarr
+  restart: always
+  environment:
+    - PUID=0
+    - PGID=0
+  ports:
+    - "7878:7878"
+  volumes:
+    - "/data/warehouse/radarr:/config"
+    - "/data/warehouse/nzbget/downloads/incoming:/downloads/incoming"
+    - "/mnt/aufs/MOVIES - HD:/movies"
+    - "/dev/rtc:/dev/rtc:ro"
